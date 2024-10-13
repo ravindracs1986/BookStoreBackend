@@ -32,10 +32,19 @@ import com.book.library.utils.ResourceNotFoundException;
 
 
 import ch.qos.logback.core.util.StringUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 /**
  * 
  */
+@Tag(name = "Book Library", description = "Book Library management APIs")
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/book")
@@ -49,6 +58,17 @@ public class BookLibraryController {
 
 	Logger logger = LoggerFactory.getLogger(BookLibraryController.class);
 	ErrorMessage message =new ErrorMessage();
+	
+	
+	@Operation(summary = "Get All books")
+	@ApiResponses(value = { 
+			  @ApiResponse(responseCode = "200", description = "Found the book", 
+			    content = { @Content(mediaType = "application/json", 
+			      schema = @Schema(implementation = String.class)) }),
+			  @ApiResponse(responseCode = "400", description = "Invalid id supplied", 
+			    content = @Content), 
+			  @ApiResponse(responseCode = "404", description = "Book not found", 
+			    content = @Content) })
 	@GetMapping("/allbooks")
 	public ResponseEntity<?> getAllBooks() {
 		

@@ -13,7 +13,7 @@ public interface BooksRepository extends JpaRepository<Books, Long> {
 	
 	Books getBookByName(String bookName);
 	
-	@Query(value = "select * from Books where copies!=0", nativeQuery = true)
+	@Query(value = "select * from books where copies!=0", nativeQuery = true)
 	List<Books> getAllBooks();
 
 }

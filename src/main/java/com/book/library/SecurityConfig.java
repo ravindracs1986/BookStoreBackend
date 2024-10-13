@@ -16,12 +16,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 	
-	@Bean
-	
-	public WebSecurityCustomizer ignoringCustomizer() {
-	    return (web) -> web.ignoring().requestMatchers("/book/createBook","/book/createUser","/book/allbooks","/book/{bookname}","/book/borrowedBook","/book/returnBook");
-	}
+	/*
+	 * @Bean
+	 * 
+	 * public WebSecurityCustomizer ignoringCustomizer() { return (web) ->
+	 * web.ignoring().requestMatchers("/book/createBook","/book/createUser",
+	 * "/book/allbooks","/book/{bookname}","/book/borrowedBook","/book/returnBook",
+	 * "/swagger-ui/*","/v3/api-docs","/swagger-ui.html"); }
+	 */
 
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests().anyRequest().permitAll();
+		return http.build();
+	}
+	
     // Bean for password encoder
     @Bean
     public PasswordEncoder passwordEncoder() {
